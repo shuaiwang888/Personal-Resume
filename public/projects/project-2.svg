@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d18"/>
+      <stop offset="100%" stop-color="#0A0A0B"/>
+    </linearGradient>
+    <radialGradient id="orb2" cx="75%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#9B8CFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#9B8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg2)"/>
+  <rect width="1600" height="900" fill="url(#grid2)"/>
+  <rect width="1600" height="900" fill="url(#orb2)"/>
+
+  <!-- 海面横线 -->
+  <g opacity="0.4" stroke="#9B8CFF" stroke-width="1" fill="none">
+    <line x1="0" y1="700" x2="1600" y2="700" stroke-opacity="0.4"/>
+    <line x1="0" y1="720" x2="1600" y2="720" stroke-opacity="0.3"/>
+    <line x1="0" y1="740" x2="1600" y2="740" stroke-opacity="0.2"/>
+  </g>
+
+  <!-- 轨迹预测路径 -->
+  <path d="M 100 600 Q 300 500 500 540 T 900 460 T 1300 380 L 1500 320"
+        fill="none" stroke="#9B8CFF" stroke-width="3" stroke-dasharray="8 6" opacity="0.7"/>
+  <path d="M 100 600 Q 300 500 500 540 T 900 460 T 1300 380 L 1500 320"
+        fill="none" stroke="#7CFFC4" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- 起点 -->
+  <circle cx="100" cy="600" r="14" fill="#7CFFC4"/>
+  <circle cx="100" cy="600" r="24" fill="none" stroke="#7CFFC4" stroke-opacity="0.4" stroke-width="2"/>
+
+  <!-- 预测终点 -->
+  <g transform="translate(1500 320)">
+    <circle r="14" fill="none" stroke="#7CFFC4" stroke-width="3"/>
+    <circle r="6" fill="#7CFFC4"/>
+  </g>
+
+  <!-- 路径点 -->
+  <g fill="#9B8CFF">
+    <circle cx="500" cy="540" r="5"/>
+    <circle cx="900" cy="460" r="5"/>
+    <circle cx="1300" cy="380" r="5"/>
+  </g>
+
+  <!-- 渔船图标 -->
+  <g transform="translate(120 600)">
+    <path d="M -20 0 L 20 0 L 16 16 L -16 16 Z" fill="#9B8CFF"/>
+    <rect x="-2" y="-30" width="4" height="30" fill="#9B8CFF"/>
+    <rect x="-8" y="-26" width="16" height="10" fill="#9B8CFF"/>
+  </g>
+
+  <!-- 信息卡 -->
+  <g transform="translate(80 100)">
+    <rect width="280" height="100" rx="12" fill="rgba(155,140,255,0.08)" stroke="rgba(155,140,255,0.3)"/>
+    <text x="20" y="36" font-family="ui-sans-serif" font-size="14" fill="rgba(155,140,255,0.8)">VESSEL · AIS-2390</text>
+    <text x="20" y="68" font-family="ui-sans-serif" font-size="22" font-weight="600" fill="#F5F5F7">Speed 12.4 kn</text>
+    <text x="20" y="88" font-family="ui-monospace" font-size="11" fill="rgba(255,255,255,0.4)">Heading 087°</text>
+  </g>
+
+  <g transform="translate(1240 100)">
+    <rect width="280" height="100" rx="12" fill="rgba(124,255,196,0.08)" stroke="rgba(124,255,196,0.3)"/>
+    <text x="20" y="36" font-family="ui-sans-serif" font-size="14" fill="rgba(124,255,196,0.8)">PREDICTED ETA</text>
+    <text x="20" y="68" font-family="ui-sans-serif" font-size="22" font-weight="600" fill="#F5F5F7">14:32 ± 2min</text>
+    <text x="20" y="88" font-family="ui-monospace" font-size="11" fill="rgba(255,255,255,0.4)">Confidence 96%</text>
+  </g>
+
+  <!-- 标题 -->
+  <text x="80" y="240" font-family="ui-sans-serif" font-size="56" font-weight="700" fill="#F5F5F7">Vessel Track</text>
+  <text x="80" y="290" font-family="ui-monospace, monospace" font-size="18" fill="rgba(155,140,255,0.7)" letter-spacing="2">AI · TRANSFORMER · PREDICTION</text>
+</svg>
