@@ -19,6 +19,16 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // 移动菜单打开时锁住 body 滚动，避免背后页面被滑动
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
   useEffect(() => {
     // 简单的滚动监听 active section
     const sections = navLinks.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[]

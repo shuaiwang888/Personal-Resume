@@ -22,6 +22,23 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
+    // 拆包：让 react / framer / icons 各自独立、长期可缓存
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (id.includes('framer-motion')) return 'framer'
+          if (id.includes('lucide-react')) return 'icons'
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react-intersection-observer/')
+          ) {
+            return 'react-vendor'
+          }
+        },
+      },
+    },
   },
   preview: {
     port: 4173,

@@ -29,6 +29,25 @@
     overflow-x: hidden;
   }
 
+  /* 全局噪点纹理：单层 body::after，避免 mix-blend-mode: overlay
+     在多个 full-viewport 层上做合成叠加（性能杀手） */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('../decor/noise.svg');
+    background-repeat: repeat;
+    opacity: 0.04;
+  }
+
+  /* 内容层需要站在噪点之上 */
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
   /* 自定义滚动条 */
   ::-webkit-scrollbar {
     width: 10px;
@@ -67,15 +86,6 @@
       linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 64px 64px;
-  }
-
-  /* 噪点纹理 */
-  .bg-noise {
-    background-image: url('../decor/noise.svg');
-    background-repeat: repeat;
-    mix-blend-mode: overlay;
-    opacity: 0.04;
-    pointer-events: none;
   }
 
   /* 渐变文字 */

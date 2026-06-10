@@ -12,6 +12,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, reverse = false }: ProjectCardProps) {
   const reduced = useReducedMotion()
   const accent = project.accentColor ?? '#7CFFC4'
+  const imageSrc = `${import.meta.env.BASE_URL}${project.image}`
 
   return (
     <motion.article
@@ -39,7 +40,7 @@ export function ProjectCard({ project, reverse = false }: ProjectCardProps) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <img
-              src={project.image}
+              src={imageSrc}
               alt={project.title}
               loading="lazy"
               className="h-full w-full object-cover"

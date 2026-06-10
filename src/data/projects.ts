@@ -17,7 +17,7 @@ export const projects: Project[] = [
       '支持自然语言查询到智能洞察生成、报告输出',
     ],
     tech: ['RAG', 'LLM', 'NoETL', '多租户', 'MQL'],
-    image: '/projects/project-1.svg',
+    image: 'projects/project-1.svg',
     accentColor: '#7CFFC4',
   },
   {
@@ -36,7 +36,7 @@ export const projects: Project[] = [
       'SaaS 订阅 + API 授权双轨模式，获东南亚商业合同',
     ],
     tech: ['Transformer', 'LLM', 'MCP', 'Function Call', 'SaaS'],
-    image: '/projects/project-2.svg',
+    image: 'projects/project-2.svg',
     accentColor: '#9B8CFF',
   },
   {
@@ -55,7 +55,7 @@ export const projects: Project[] = [
       '已落地地下管廊巡检、森林环境监测等场景',
     ],
     tech: ['LLM', 'VLM', 'Function Call', 'ROS', '点云建图'],
-    image: '/projects/project-3.svg',
+    image: 'projects/project-3.svg',
     accentColor: '#3DDC97',
   },
   {
@@ -74,7 +74,7 @@ export const projects: Project[] = [
       '成功交付中国人民解放军 619xx 部队，获高度认可',
     ],
     tech: ['LangChain', 'RAG', 'ElasticSearch', 'FAISS', '向量检索'],
-    image: '/projects/project-4.svg',
+    image: 'projects/project-4.svg',
     accentColor: '#7CFFC4',
   },
 ]

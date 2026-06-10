@@ -25,7 +25,7 @@ export function Contact() {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-grid bg-size-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
       />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-noise" />
+      <div aria-hidden className="pointer-events-none absolute inset-0" />
 
       <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
         <motion.div

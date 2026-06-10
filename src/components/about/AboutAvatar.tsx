@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
 import { profile } from '@/data/profile'
 
 /**
  * 头像组件
  * - 响应式：<picture> 自动按视口选最优尺寸 + WebP 优先
  * - 加载失败：降级为 SVG 首字母占位
+ * - 旋转环：用 useInView 闸门，滚出视口时停止动画，省电省 GPU
+ * - 减少动画偏好：旋转环静止
  * - 源图：public/avatar/avatar.jpg （运行 npm run optimize:images 生成多尺寸）
  */
 const SIZES = [256, 384, 512, 768, 1024]
@@ -13,13 +16,18 @@ const BASE = import.meta.env.BASE_URL
 
 export function AboutAvatar() {
   const [imgError, setImgError] = useState(false)
+  const reduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { margin: '100px' })
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-sm">
-      {/* 渐变旋转环 */}
+    <div ref={ref} className="relative mx-auto aspect-square w-full max-w-sm">
+      {/* 渐变旋转环：仅在视口内 + 非 reduced-motion 时才旋转 */}
       <div
         aria-hidden
-        className="absolute inset-0 -m-2 animate-spin-slow rounded-full bg-[conic-gradient(from_90deg_at_50%_50%,#7CFFC4_0%,#9B8CFF_25%,#7CFFC4_50%,#9B8CFF_75%,#7CFFC4_100%)] opacity-70 blur-md"
+        className={`absolute inset-0 -m-2 rounded-full bg-[conic-gradient(from_90deg_at_50%_50%,#7CFFC4_0%,#9B8CFF_25%,#7CFFC4_50%,#9B8CFF_75%,#7CFFC4_100%)] opacity-70 blur-md ${
+          reduced ? '' : inView ? 'animate-spin-slow' : ''
+        }`}
       />
       <div
         aria-hidden

@@ -4,11 +4,10 @@ import { MagneticButton } from '@/components/ui/MagneticButton'
 import { profile } from '@/data/profile'
 import { ANIMATION } from '@/lib/constants'
 
-const HEADLINE = '用 AI 重塑金融决策' // 主标题
+const HEADLINE = '用 AI 重塑金融决策'
 
 export function HeroContent() {
   const reduced = useReducedMotion()
-  const words = HEADLINE.split('')
 
   const fadeUp = (delay = 0) => ({
     initial: reduced ? { opacity: 0 } : { opacity: 0, y: 24 },
@@ -34,28 +33,13 @@ export function HeroContent() {
           </span>
         </motion.div>
 
-        {/* 主标题（逐字入场） */}
+        {/* 主标题：整体淡入（避免逐字动画拖慢 LCP），保留光标闪烁 */}
         <h1 className="font-display text-display-xl text-balance text-ink-primary">
-          {words.map((char, i) => (
-            <motion.span
-              key={`${char}-${i}`}
-              initial={reduced ? { opacity: 0 } : { opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.9,
-                delay: reduced ? 0 : 0.1 + i * 0.04,
-                ease: ANIMATION.ease,
-              }}
-              className="inline-block"
-              style={{ whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-            >
-              {char === ' ' ? ' ' : char}
-            </motion.span>
-          ))}
+          {HEADLINE}
           <motion.span
             initial={reduced ? { opacity: 0 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: reduced ? 0 : 0.1 + words.length * 0.04 + 0.2, duration: 0.6 }}
+            transition={{ delay: reduced ? 0 : 0.6, duration: 0.6 }}
             className="ml-1 inline-block h-[0.85em] w-[0.4em] translate-y-[0.05em] bg-accent"
             aria-hidden
           />
@@ -63,15 +47,15 @@ export function HeroContent() {
 
         {/* 副标题 */}
         <motion.p
-          {...fadeUp(0.7)}
+          {...fadeUp(0.4)}
           className="mt-6 max-w-2xl text-body-lg text-ink-secondary md:mt-8 md:text-lg"
         >
           {profile.tagline}
         </motion.p>
 
-        {/* 核心亮点（数字 + 描述） */}
+        {/* 核心亮点 */}
         <motion.div
-          {...fadeUp(0.85)}
+          {...fadeUp(0.55)}
           className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-ink-tertiary md:mt-10"
         >
           <span className="flex items-center gap-2">
@@ -84,7 +68,7 @@ export function HeroContent() {
 
         {/* CTAs */}
         <motion.div
-          {...fadeUp(1)}
+          {...fadeUp(0.7)}
           className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center md:mt-12"
         >
           <MagneticButton href="#projects" variant="primary">
@@ -102,13 +86,13 @@ export function HeroContent() {
         href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
+        transition={{ delay: 1.0, duration: 0.6 }}
         className="absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-caption uppercase text-ink-tertiary md:flex"
         aria-label="向下滚动"
       >
         <span>scroll</span>
         <motion.span
-          animate={{ y: [0, 6, 0] }}
+          animate={reduced ? undefined : { y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           className="inline-flex h-9 w-5 items-start justify-center rounded-full border border-line-strong pt-1.5"
         >
