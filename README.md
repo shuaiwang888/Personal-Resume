@@ -66,7 +66,7 @@ src/
 |---|---|---|
 | Hero 视频 | `public/hero-bg.mp4` | MP4，<5MB 推荐。删除则使用渐变兜底背景 |
 | Hero 封面 | `public/hero-poster.jpg` | 视频加载前的占位图 |
-| 头像 | `public/avatar.jpg` | 可选，About 模块当前使用首字母 SVG 占位 |
+| 头像 | `public/avatar/avatar.jpg` | About 模块使用；若图片加载失败会自动降级为首字母 SVG 占位 |
 | 项目图 1-4 | `public/projects/project-{1..4}.svg` | 4 张项目大图 |
 | Favicon | `public/favicon.svg` | 当前为首字母 "W" |
 | 噪点 | `public/noise.svg` | 不可见装饰，可保持原样 |

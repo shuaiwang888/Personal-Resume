@@ -1,7 +1,15 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { profile } from '@/data/profile'
 
+/**
+ * 头像组件
+ * - 优先加载 public/avatar/avatar.jpg
+ * - 加载失败时降级为 SVG 首字母占位（不影响首屏渲染）
+ */
 export function AboutAvatar() {
+  const [imgError, setImgError] = useState(false)
+
   return (
     <div className="relative mx-auto aspect-square w-full max-w-sm">
       {/* 渐变旋转环 */}
@@ -16,24 +24,36 @@ export function AboutAvatar() {
 
       {/* 头像主体 */}
       <div className="relative aspect-square w-full overflow-hidden rounded-full border border-line-subtle bg-bg-elevated">
-        {/* 占位：使用首字母，未来可替换为真实头像 */}
-        <div
-          aria-label={`${profile.name} 的头像占位`}
-          className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-elevated via-bg-surface to-bg-base"
-        >
-          {/* 装饰网格 */}
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-grid bg-size-grid opacity-40 [mask-image:radial-gradient(circle_at_center,black,transparent_70%)]"
+        {!imgError ? (
+          <img
+            src={`${import.meta.env.BASE_URL}avatar/avatar.jpg`}
+            alt={`${profile.name} 的头像`}
+            width={512}
+            height={512}
+            loading="lazy"
+            decoding="async"
+            onError={() => setImgError(true)}
+            className="h-full w-full object-cover"
           />
-          <span className="font-display text-[8rem] font-semibold leading-none text-gradient-accent">
-            {profile.initial}
-          </span>
-          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-caption uppercase text-ink-tertiary">
-            <span>AI · PM</span>
-            <span className="text-accent">●</span>
+        ) : (
+          // 兜底：首字母占位
+          <div
+            aria-label={`${profile.name} 的头像占位`}
+            className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-elevated via-bg-surface to-bg-base"
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-grid bg-size-grid opacity-40 [mask-image:radial-gradient(circle_at_center,black,transparent_70%)]"
+            />
+            <span className="font-display text-[8rem] font-semibold leading-none text-gradient-accent">
+              {profile.initial}
+            </span>
+            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-caption uppercase text-ink-tertiary">
+              <span>AI · PM</span>
+              <span className="text-accent">●</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* 浮起的状态卡 */}
