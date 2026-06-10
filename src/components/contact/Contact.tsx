@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowUpRight, Send } from 'lucide-react'
+import { ArrowUpRight, Download, Send } from 'lucide-react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { ContactChannel } from './ContactChannel'
 import { profile } from '@/data/profile'
@@ -78,6 +78,15 @@ export function Contact() {
             <Send className="h-4 w-4" />
             发送邮件
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </MagneticButton>
+          <MagneticButton
+            href={`${import.meta.env.BASE_URL}documents/resume.pdf`}
+            variant="ghost"
+            // 文件下载：浏览器原生下载，文件名更友好
+            anchorProps={{ download: '王帅-AI产品经理-简历.pdf' }}
+          >
+            <Download className="h-4 w-4" />
+            下载简历 PDF
           </MagneticButton>
           <MagneticButton href={`tel:${profile.phone}`} variant="ghost">
             {profile.phone}

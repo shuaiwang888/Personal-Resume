@@ -1,4 +1,4 @@
-import { useRef, type ReactNode, type MouseEvent } from 'react'
+import { useRef, type ReactNode, type MouseEvent, type AnchorHTMLAttributes } from 'react'
 import {
   motion,
   useMotionValue,
@@ -17,6 +17,8 @@ interface MagneticButtonProps {
   strength?: number
   ariaLabel?: string
   type?: 'button' | 'submit'
+  /** 当 href 存在时透传给 <a>，用于触发浏览器下载（设置文件名等） */
+  anchorProps?: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className' | 'aria-label'>
 }
 
 /**
@@ -33,6 +35,7 @@ export function MagneticButton({
   strength = 0.25,
   ariaLabel,
   type = 'button',
+  anchorProps,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
@@ -91,7 +94,12 @@ export function MagneticButton({
         style={{ x: sx, y: sy }}
         className="inline-block"
       >
-        <a href={href} className={baseClass} aria-label={ariaLabel}>
+        <a
+          href={href}
+          className={baseClass}
+          aria-label={ariaLabel}
+          {...anchorProps}
+        >
           {inner}
         </a>
       </motion.div>

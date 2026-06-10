@@ -15,21 +15,21 @@ export function HeroVideo() {
         }}
       />
 
-      {/* 视频层（如果 public/hero-bg.mp4 存在则播放） */}
+      {/* 视频层（如果 public/hero/hero-bg.mp4 存在则播放） */}
       <video
         className="absolute inset-0 h-full w-full object-cover opacity-40"
         autoPlay
         muted
         loop
         playsInline
-        poster="/hero-poster.jpg"
+        poster={`${import.meta.env.BASE_URL}hero/hero-poster.jpg`}
         preload="metadata"
         onError={(e) => {
           // 视频加载失败时隐藏，仅保留渐变背景
           ;(e.currentTarget as HTMLVideoElement).style.display = 'none'
         }}
       >
-        <source src="/hero-bg.mp4" type="video/mp4" />
+        <source src={`${import.meta.env.BASE_URL}hero/hero-bg.mp4`} type="video/mp4" />
       </video>
 
       {/* 网格线 */}

@@ -62,14 +62,27 @@ src/
 
 ## 替换占位资源
 
+`public/` 已按用途分类，便于长期维护：
+
+| 目录 | 用途 | 约定 |
+|---|---|---|
+| `public/avatar/` | 头像 | 源图 `avatar.jpg`，构建时自动生成多尺寸 WebP + JPG（见下方"图片优化"） |
+| `public/projects/` | 项目大图 | `project-{1..4}.svg`，已是矢量无需压缩 |
+| `public/hero/` | Hero 视频/封面 | 视频 `hero-bg.mp4`（<5MB 推荐），封面 `hero-poster.jpg` |
+| `public/documents/` | 简历 PDF 等可下载文档 | `resume.pdf`，UI 提供下载按钮 |
+| `public/decor/` | 装饰性资源 | `noise.svg` 噪点纹理 |
+
+完整资源清单：
+
 | 资源 | 路径 | 说明 |
 |---|---|---|
-| Hero 视频 | `public/hero-bg.mp4` | MP4，<5MB 推荐。删除则使用渐变兜底背景 |
-| Hero 封面 | `public/hero-poster.jpg` | 视频加载前的占位图 |
-| 头像 | `public/avatar/avatar.jpg` | About 模块使用；若图片加载失败会自动降级为首字母 SVG 占位 |
-| 项目图 1-4 | `public/projects/project-{1..4}.svg` | 4 张项目大图 |
+| 头像源图 | `public/avatar/avatar.jpg` | About 模块使用；自动生成 256/384/512/768/1024 五档 WebP + JPG |
+| 项目图 1-4 | `public/projects/project-{1..4}.svg` | 4 张项目大图（SVG，无需压缩） |
+| Hero 视频 | `public/hero/hero-bg.mp4` | MP4，<5MB 推荐。删除则使用渐变兜底背景 |
+| Hero 封面 | `public/hero/hero-poster.jpg` | 视频加载前的占位图 |
+| 简历 PDF | `public/documents/resume.pdf` | Contact 模块「下载简历 PDF」按钮触发下载 |
 | Favicon | `public/favicon.svg` | 当前为首字母 "W" |
-| 噪点 | `public/noise.svg` | 不可见装饰，可保持原样 |
+| 噪点 | `public/decor/noise.svg` | 不可见装饰，可保持原样 |
 
 ## 自定义主题
 
@@ -77,6 +90,26 @@ src/
 
 - `colors.bg.*` / `colors.ink.*` / `colors.accent.*` — 配色
 - `fontFamily` — 字体（默认 Space Grotesk + Inter + JetBrains Mono）
+
+## 图片优化（自动）
+
+`AboutAvatar` 组件使用 `<picture>` 响应式加载：
+
+- 浏览器自动选择最合适的尺寸（移动端 256w → 桌面 1024w）
+- 支持 WebP 的浏览器优先用 WebP（节省 50%+ 体积），老浏览器降级到 JPG
+- 缺失图片自动降级为首字母 SVG 占位
+
+**新增/替换头像后**：
+
+```bash
+# 方式 1：构建时自动跑（已配置 prebuild 钩子）
+npm run build
+
+# 方式 2：手动单独跑
+npm run optimize:images
+```
+
+脚本会扫描 `public/avatar/`、`public/projects/`、`public/hero/` 下的 JPG/PNG 源图，按预设尺寸档生成 WebP + JPG 变体，并跳过已有产物，避免重复处理。
 - `fontSize` — 流体字号
 - `keyframes` / `animation` — 动画
 

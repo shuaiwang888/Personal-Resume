@@ -4,9 +4,13 @@ import { profile } from '@/data/profile'
 
 /**
  * 头像组件
- * - 优先加载 public/avatar/avatar.jpg
- * - 加载失败时降级为 SVG 首字母占位（不影响首屏渲染）
+ * - 响应式：<picture> 自动按视口选最优尺寸 + WebP 优先
+ * - 加载失败：降级为 SVG 首字母占位
+ * - 源图：public/avatar/avatar.jpg （运行 npm run optimize:images 生成多尺寸）
  */
+const SIZES = [256, 384, 512, 768, 1024]
+const BASE = import.meta.env.BASE_URL
+
 export function AboutAvatar() {
   const [imgError, setImgError] = useState(false)
 
@@ -25,16 +29,31 @@ export function AboutAvatar() {
       {/* 头像主体 */}
       <div className="relative aspect-square w-full overflow-hidden rounded-full border border-line-subtle bg-bg-elevated">
         {!imgError ? (
-          <img
-            src={`${import.meta.env.BASE_URL}avatar/avatar.jpg`}
-            alt={`${profile.name} 的头像`}
-            width={512}
-            height={512}
-            loading="lazy"
-            decoding="async"
-            onError={() => setImgError(true)}
-            className="h-full w-full object-cover"
-          />
+          <picture>
+            {/* WebP 优先：体积更小、压缩更优 */}
+            <source
+              type="image/webp"
+              srcSet={SIZES.map(
+                (w) => `${BASE}avatar/avatar-${w}.webp ${w}w`,
+              ).join(', ')}
+              sizes="(max-width: 640px) 100vw, 24rem"
+            />
+            {/* JPG 兜底：覆盖所有老浏览器 */}
+            <img
+              src={`${BASE}avatar/avatar-512.jpg`}
+              srcSet={SIZES.map(
+                (w) => `${BASE}avatar/avatar-${w}.jpg ${w}w`,
+              ).join(', ')}
+              sizes="(max-width: 640px) 100vw, 24rem"
+              alt={`${profile.name} 的头像`}
+              width={512}
+              height={512}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgError(true)}
+              className="h-full w-full object-cover"
+            />
+          </picture>
         ) : (
           // 兜底：首字母占位
           <div

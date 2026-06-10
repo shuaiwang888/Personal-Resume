@@ -71,7 +71,7 @@
 
   /* 噪点纹理 */
   .bg-noise {
-    background-image: url('/noise.svg');
+    background-image: url('../decor/noise.svg');
     background-repeat: repeat;
     mix-blend-mode: overlay;
     opacity: 0.04;
