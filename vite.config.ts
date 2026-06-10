@@ -10,9 +10,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // base: './' — 便于部署到任意子路径（GitHub Pages、子目录托管、对象存储）
-  // 如部署到根域名，可改为 '/'
-  base: './',
+  // GitHub Pages 子路径：默认 '/'（本地 dev/preview），生产构建由 CI 注入 VITE_BASE=/Personal-Resume/
+  base: process.env.VITE_BASE || '/',
   server: {
     port: 5173,
     open: true,

@@ -5,18 +5,18 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# 同一时间只允许一个部署任务运行，避免并发冲突
+# 同时只跑一个部署，慢构建 + 手动重派不打架
 concurrency:
-  group: pages
+  group: deploy-gh-pages
   cancel-in-progress: true
 
+# gh-pages 分支模式：只需 contents: write 即可推分支
+# 不再用 actions/deploy-pages 的 artifact API
+permissions:
+  contents: write
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,27 +32,22 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          # GitHub Pages 子路径：/Personal-Resume/
+          VITE_BASE: /Personal-Resume/
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          # 若 Pages 尚未在仓库设置中初始化，自动启用
-          # （仅在 Pages 功能在账户/组织层面可用时有效）
-          enablement: true
+      - name: Disable Jekyll processing
+        # 让 GitHub Pages 把以 _ 开头的文件当静态资源（当前项目未用到，防御性加）
+        run: touch dist/.nojekyll
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # 单 commit 替换：gh-pages 分支不会随时间膨胀
+          force_orphan: true
+          keep_files: false
+          enable_jekyll: false
