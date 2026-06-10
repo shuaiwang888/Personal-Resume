@@ -15,6 +15,11 @@
   border: 1px solid rgb(255 255 255 / 15%);
   background: var(--card-bg, #120F17);
   overflow: visible;
+  /* 性能：提示浏览器把这些属性提前合成到独立 GPU 层
+     - 鼠标在卡上时，浏览器复用合成层只重绘 conic-gradient mask
+     - 离开卡后 will-change 自动失效（不会持续占显存）*/
+  will-change: transform, opacity;
+  contain: layout style paint;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 1px 2px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px,
@@ -33,6 +38,8 @@
   border-radius: inherit;
   transition: opacity 0.25s ease-out;
   z-index: -1;
+  /* 性能：3 个 mask 层（::before ::after edge-light）提前合成 */
+  will-change: opacity;
 }
 
 .border-glow-card:not(:hover):not(.sweep-active)::before,
@@ -67,6 +74,8 @@
       transparent calc((100 - var(--cone-spread) - 15) * 1%),
       black calc((100 - var(--cone-spread)) * 1%)
     );
+  /* 性能：去掉 mix-blend-mode（合成层杀手），用 alpha 替代 */
+  /* mix-blend-mode: soft-light; */
 }
 
 /* colored mesh-gradient background fill near edges */
@@ -93,7 +102,8 @@
 
   mask-composite: subtract, add, add, add, add, add;
   opacity: calc(var(--fill-opacity, 0.5) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
-  mix-blend-mode: soft-light;
+  /* 性能：去 mix-blend-mode */
+  /* mix-blend-mode: soft-light; */
 }
 
 /* outer glow layer */
@@ -108,7 +118,8 @@
     );
 
   opacity: calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));
-  mix-blend-mode: plus-lighter;
+  /* 性能：去 mix-blend-mode: plus-lighter（这是最贵的混合模式之一） */
+  /* mix-blend-mode: plus-lighter; */
 }
 
 .border-glow-card > .edge-light::before {

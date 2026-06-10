@@ -125,6 +125,8 @@ export function BorderGlow({
   style,
 }: BorderGlowProps) {
   const cardRef = useRef<HTMLDivElement | null>(null)
+  const rafIdRef = useRef<number | null>(null)
+  const lastEventRef = useRef<{ x: number; y: number } | null>(null)
 
   const getCenterOfElement = useCallback((el: HTMLElement): [number, number] => {
     const { width, height } = el.getBoundingClientRect()
@@ -159,23 +161,46 @@ export function BorderGlow({
     [getCenterOfElement],
   )
 
+  /**
+   * rAF 节流：pointermove 事件高频触发（移动端可 120+ Hz），
+   * 但浏览器只在下一帧渲染前才需要最新的 style 值。
+   * 把多次 setProperty 合并到一帧内，主线程压力减半。
+   */
+  const flushStyle = useCallback(() => {
+    rafIdRef.current = null
+    const card = cardRef.current
+    const last = lastEventRef.current
+    if (!card || !last) return
+
+    const rect = card.getBoundingClientRect()
+    const x = last.x - rect.left
+    const y = last.y - rect.top
+
+    const edge = getEdgeProximity(card, x, y)
+    const angle = getCursorAngle(card, x, y)
+
+    card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`)
+    card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`)
+  }, [getEdgeProximity, getCursorAngle])
+
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      const card = cardRef.current
-      if (!card) return
-
-      const rect = card.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-
-      const edge = getEdgeProximity(card, x, y)
-      const angle = getCursorAngle(card, x, y)
-
-      card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`)
-      card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`)
+      lastEventRef.current = { x: e.clientX, y: e.clientY }
+      if (rafIdRef.current !== null) return
+      rafIdRef.current = requestAnimationFrame(flushStyle)
     },
-    [getEdgeProximity, getCursorAngle],
+    [flushStyle],
   )
+
+  // 组件卸载时清理未完成的 rAF，避免对已卸载节点写样式
+  useEffect(() => {
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!animated || !cardRef.current) return
