@@ -1,12 +1,12 @@
 import { useReducedMotion } from 'framer-motion'
-import { SideRays } from '@/components/ui/SideRays/SideRays'
+import { SoftAurora } from '@/components/ui/SoftAurora/SoftAurora'
 
 /**
  * Hero 区背景层
- * - 径向渐变 + 边角射线（SideRays / WebGL）双层叠加
+ * - 径向渐变 + 极光（SoftAurora / WebGL + Perlin 噪声）双层叠加
  * - 配色对齐品牌：薄荷绿 #7CFFC4 × 紫罗兰 #9B8CFF
  * - 顶部 + 底部蒙版压暗，让导航文字与正文突出
- * - 减少动画偏好：不渲染 SideRays（节能 + 减轻前庭负担）
+ * - 减少动画偏好：不渲染 SoftAurora（节能 + 减轻前庭负担）
  */
 export function HeroVideo() {
   const reduced = useReducedMotion()
@@ -23,21 +23,24 @@ export function HeroVideo() {
         }}
       />
 
-      {/* 边角射线（WebGL），仅在未启用 reduced-motion 时渲染 */}
+      {/* 极光（WebGL + Perlin 噪声），仅在未启用 reduced-motion 时渲染 */}
       {!reduced && (
-        <div className="absolute inset-0 opacity-60">
-          <SideRays
-            speed={1.2}
-            rayColor1="#7CFFC4"
-            rayColor2="#9B8CFF"
-            intensity={1.2}
-            spread={1.5}
-            origin="top-right"
-            tilt={0}
-            saturation={1.3}
-            blend={0.5}
-            falloff={1.8}
-            opacity={1.0}
+        <div className="absolute inset-0 opacity-70 mix-blend-screen">
+          <SoftAurora
+            speed={0.5}
+            scale={1.8}
+            brightness={0.9}
+            color1="#7CFFC4"
+            color2="#9B8CFF"
+            noiseFrequency={2.2}
+            noiseAmplitude={1.1}
+            bandHeight={0.55}
+            bandSpread={0.9}
+            octaveDecay={0.12}
+            layerOffset={0.35}
+            colorSpeed={0.6}
+            enableMouseInteraction={true}
+            mouseInfluence={0.18}
           />
         </div>
       )}
