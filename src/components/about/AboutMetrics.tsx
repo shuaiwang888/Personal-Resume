@@ -1,5 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import { motion, useReducedMotion } from 'framer-motion'
+import { BorderGlow } from '@/components/ui/BorderGlow/BorderGlow'
 import { useCountUp } from '@/hooks/useCountUp'
 import { profile } from '@/data/profile'
 import { ANIMATION } from '@/lib/constants'
@@ -43,25 +44,40 @@ function MetricItem({
         delay: 0.1 + index * 0.08,
         ease: ANIMATION.ease,
       }}
-      className="group relative overflow-hidden rounded-2xl border border-line-subtle bg-bg-surface/40 p-6 transition-all hover:border-accent/30 hover:bg-bg-surface"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-      />
-      <p className="font-display text-4xl font-semibold leading-none text-ink-primary md:text-5xl">
-        {prefix}
-        <span className="text-gradient-accent">{formatted}</span>
-        {suffix && (
-          <span className="ml-0.5 text-xl text-ink-secondary md:text-2xl">
-            {suffix}
-          </span>
-        )}
-      </p>
-      <p className="mt-3 text-sm font-medium text-ink-primary">{label}</p>
-      {description && (
-        <p className="mt-1 text-xs text-ink-tertiary">{description}</p>
-      )}
+      <BorderGlow
+        // 4 个小卡：用更收敛的参数，不抢数字的视觉焦点
+        colors={['#7CFFC4', '#9B8CFF', '#38bdf8']}
+        glowColor="153 100% 75%"
+        backgroundColor="#0F1411"
+        borderRadius={16}
+        glowRadius={20}
+        glowIntensity={0.6}
+        edgeSensitivity={22}
+        coneSpread={18}
+        fillOpacity={0.45}
+        className="p-1"
+      >
+        <div className="group relative overflow-hidden rounded-[12px] bg-bg-surface/40 p-5 transition-all hover:bg-bg-surface md:p-6">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+          />
+          <p className="font-display text-4xl font-semibold leading-none text-ink-primary md:text-5xl">
+            {prefix}
+            <span className="text-gradient-accent">{formatted}</span>
+            {suffix && (
+              <span className="ml-0.5 text-xl text-ink-secondary md:text-2xl">
+                {suffix}
+              </span>
+            )}
+          </p>
+          <p className="mt-3 text-sm font-medium text-ink-primary">{label}</p>
+          {description && (
+            <p className="mt-1 text-xs text-ink-tertiary">{description}</p>
+          )}
+        </div>
+      </BorderGlow>
     </motion.div>
   )
 }
