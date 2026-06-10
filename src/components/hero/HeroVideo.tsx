@@ -1,14 +1,19 @@
+import { useReducedMotion } from 'framer-motion'
+import { SideRays } from '@/components/ui/SideRays/SideRays'
+
 /**
  * Hero 区背景层
- * - 静态渐变背景（生产环境最优：零 JS / 零网络 / 零重绘）
+ * - 径向渐变 + 边角射线（SideRays / WebGL）双层叠加
+ * - 配色对齐品牌：薄荷绿 #7CFFC4 × 紫罗兰 #9B8CFF
  * - 顶部 + 底部蒙版压暗，让导航文字与正文突出
- * - 取消 <video> 元素：避免缺失资源时的 404 阻塞 LCP
- * - 取消 blur(120px) 光晕：消除每帧 GPU 合成成本
+ * - 减少动画偏好：不渲染 SideRays（节能 + 减轻前庭负担）
  */
 export function HeroVideo() {
+  const reduced = useReducedMotion()
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* 主背景：径向渐变（已包含原视频的冷暖光感） */}
+      {/* 主背景：径向渐变（冷暖光感） */}
       <div
         aria-hidden
         className="absolute inset-0"
@@ -17,6 +22,25 @@ export function HeroVideo() {
             'radial-gradient(ellipse at 20% 20%, rgba(124, 255, 196, 0.18), transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(155, 140, 255, 0.15), transparent 55%), linear-gradient(180deg, #0A0A0B 0%, #0d1410 100%)',
         }}
       />
+
+      {/* 边角射线（WebGL），仅在未启用 reduced-motion 时渲染 */}
+      {!reduced && (
+        <div className="absolute inset-0 opacity-60">
+          <SideRays
+            speed={1.2}
+            rayColor1="#7CFFC4"
+            rayColor2="#9B8CFF"
+            intensity={1.2}
+            spread={1.5}
+            origin="top-right"
+            tilt={0}
+            saturation={1.3}
+            blend={0.5}
+            falloff={1.8}
+            opacity={1.0}
+          />
+        </div>
+      )}
 
       {/* 网格线 */}
       <div
@@ -38,4 +62,3 @@ export function HeroVideo() {
     </div>
   )
 }
-

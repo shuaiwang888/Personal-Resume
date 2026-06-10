@@ -29,6 +29,7 @@ export default defineConfig({
           if (!id.includes('node_modules')) return
           if (id.includes('framer-motion')) return 'framer'
           if (id.includes('lucide-react')) return 'icons'
+          if (id.includes('node_modules/ogl/')) return 'ogl'
           if (
             id.includes('node_modules/react/') ||
             id.includes('node_modules/react-dom/') ||
