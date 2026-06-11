@@ -37,7 +37,7 @@ export function Contact() {
         >
           <span className="h-px w-10 bg-accent/60" />
           <span className="font-mono text-caption uppercase tracking-[0.2em]">
-            04 · Let's Talk
+            05 · Let's Talk
           </span>
           <span className="h-px w-10 bg-accent/60" />
         </motion.div>

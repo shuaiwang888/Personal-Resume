@@ -5,7 +5,7 @@ export function Advantages() {
   return (
     <Section
       id="advantages"
-      eyebrow="03 · 能力优势"
+      eyebrow="04 · 能力优势"
       title={
         <>
           把<span className="text-gradient-accent">工程深度</span>

@@ -75,3 +75,24 @@ export interface ContactChannel {
   href: string
   icon: string
 }
+
+/**
+ * 个人作品 —— 与 Project 区分：
+ * - Project 是"在岗项目履历"（有 role / period / 雇主）
+ * - Work 是"独立/副业作品"（无雇主、可点击试用、状态驱动）
+ */
+export interface Work {
+  id: string
+  title: string
+  /** 中英双语状态，如 "已上线 / Live"、"开发中 / In Progress" */
+  status: string
+  /** 卡片强调色：驱动角标 / 渐变封面 / check 图标染色 */
+  accentColor: string
+  description: string
+  highlights: string[]
+  tech: string[]
+  url: string
+  year: string
+  /** 可选：未提供时回退到 accent-tinted 渐变占位封面 */
+  coverImage?: string
+}
