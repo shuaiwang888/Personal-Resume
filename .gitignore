@@ -25,3 +25,8 @@ dist-ssr
 
 # Vercel
 .vercel/
+
+# Local env (PII: 真实邮箱/手机号) — 永不提交
+.env
+.env.local
+.env.*.local

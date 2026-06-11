@@ -1,5 +1,14 @@
 import type { Profile, ContactChannel } from './types'
 
+// 联系方式从环境变量读取（build-time 注入），避免明文 PII 出现在公开仓库源码中
+// 本地 dev：复制 .env.example 为 .env.local 填入真实值
+// CI：GitHub Actions secrets 注入
+// 占位符保证 dev 不会因为缺 env 而失败
+const PUBLIC_EMAIL =
+  import.meta.env.VITE_PUBLIC_EMAIL || '[邮箱待配置]'
+const PUBLIC_PHONE =
+  import.meta.env.VITE_PUBLIC_PHONE || '[电话待配置]'
+
 export const profile: Profile = {
   name: '王帅',
   initial: 'W',
@@ -7,8 +16,8 @@ export const profile: Profile = {
   tagline: '从后端架构到 AI 产品落地，把工程深度转化为金融智能的产品价值',
   location: '成都 / 远程',
   status: '求职意向 · AI 产品经理',
-  email: '1102733772WS@gmail.com',
-  phone: '19372451602',
+  email: PUBLIC_EMAIL,
+  phone: PUBLIC_PHONE,
   intro: [
     '具备从后端、算法到 AI 产品搭建的全链路经验，深刻理解 RAG、大模型微调、AI Agent、LLM 开发框架及知识图谱等核心技术原理与边界。能基于业务目标选择最优技术路径，主导从 0 到 1 的产品规划、架构设计与迭代优化。',
     '拥有主导生成式商业智能（AIGC+BI）、军事情报问答与决策支持、智慧航运等大型 AI 产品的成功落地经验。擅长将前沿 AI 技术与复杂行业场景深度融合，实现产品的商业价值。',
@@ -74,15 +83,15 @@ export const contactChannels: ContactChannel[] = [
   {
     id: 'email',
     label: '邮箱',
-    value: '1102733772WS@gmail.com',
-    href: 'mailto:1102733772WS@gmail.com',
+    value: PUBLIC_EMAIL,
+    href: `mailto:${PUBLIC_EMAIL}`,
     icon: 'Mail',
   },
   {
     id: 'phone',
     label: '电话',
-    value: '19372451602',
-    href: 'tel:19372451602',
+    value: PUBLIC_PHONE,
+    href: `tel:${PUBLIC_PHONE}`,
     icon: 'Phone',
   },
   {

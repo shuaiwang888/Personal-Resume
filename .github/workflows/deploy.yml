@@ -4,23 +4,28 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # 注意：故意不监听 pull_request，避免 PR 触发 GITHUB_TOKEN 写入
 
 # 同时只跑一个部署，慢构建 + 手动重派不打架
 concurrency:
   group: deploy-gh-pages
   cancel-in-progress: true
 
-# gh-pages 分支模式：只需 contents: write 即可推分支
-# 不再用 actions/deploy-pages 的 artifact API
+# 最小权限：job 默认 read-all，单独开 contents: write 给 deploy 用
+# 这样 checkout 等 step 不会拿到任何额外权限
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 只在这个 job 内显式开写权限（peaceiris push 用）
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # 不缓存凭证，step 完成后立即丢弃
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -35,6 +40,9 @@ jobs:
         env:
           # GitHub Pages 子路径：/Personal-Resume/
           VITE_BASE: /Personal-Resume/
+          # 联系方式（从 Repository secrets 注入；本地 dev 用 .env.local）
+          VITE_PUBLIC_EMAIL: ${{ secrets.VITE_PUBLIC_EMAIL }}
+          VITE_PUBLIC_PHONE: ${{ secrets.VITE_PUBLIC_PHONE }}
         run: npm run build
 
       - name: Disable Jekyll processing

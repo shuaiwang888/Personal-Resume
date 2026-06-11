@@ -3,14 +3,15 @@ import type { Easing } from 'framer-motion'
 /**
  * 全局常量配置
  * 修改此处即可影响全站
+ *
+ * 注意：邮箱/手机号等 PII 放在 src/data/profile.ts，从 import.meta.env 读取
+ * （本地 .env.local / CI secrets 注入），避免明文出现在公开仓库
  */
 
 export const SITE = {
   name: '王帅',
   role: 'AI 产品经理 · 金融大模型',
-  url: 'https://example.com', // 部署后修改
-  email: '1102733772WS@gmail.com',
-  phone: '19372451602',
+  url: 'https://shuaiwang888.github.io/Personal-Resume/',
   builtWith: 'React + Vite + Tailwind CSS + Framer Motion',
 } as const
 
