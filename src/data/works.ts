@@ -31,6 +31,7 @@ export const works: Work[] = [
       'GitHub Pages',
     ],
     url: 'https://shuaiwang888.github.io/Quantitative-Backtesting/?api=https://quant-backtest.onrender.com',
+    coverImage: 'works/quant-backtest-cover',
   },
 
   // ─────────────────────────────────────────────────────────────

@@ -65,12 +65,33 @@ export function WorkCard({ work, index }: WorkCardProps) {
           {/* ───── 封面区 ───── */}
           <div className="relative mb-5 overflow-hidden rounded-xl">
             {coverSrc ? (
-              <img
-                src={coverSrc}
-                alt={work.title}
-                loading="lazy"
-                className="aspect-[16/9] w-full object-cover"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={`
+                    ${coverSrc}-480.webp 480w,
+                    ${coverSrc}-768.webp 768w,
+                    ${coverSrc}-1280.webp 1280w
+                  `}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                />
+                <source
+                  type="image/jpeg"
+                  srcSet={`
+                    ${coverSrc}-480.jpg 480w,
+                    ${coverSrc}-768.jpg 768w,
+                    ${coverSrc}-1280.jpg 1280w
+                  `}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                />
+                <img
+                  src={`${coverSrc}-768.jpg`}
+                  alt={work.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[16/9] w-full object-cover"
+                />
+              </picture>
             ) : (
               <div
                 aria-hidden

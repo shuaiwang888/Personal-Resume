@@ -41,6 +41,13 @@ const PIPELINES = [
     quality: { webp: 75, jpg: 78 },
     fit: 'cover',
   },
+  {
+    srcDir: 'public/works',
+    widths: [480, 768, 1280], // 个人作品封面：grid 1/2 列
+    formats: ['webp', 'jpg'],
+    quality: { webp: 80, jpg: 82 },
+    fit: 'cover',
+  },
 ]
 
 /** 递归扫描目录 */
