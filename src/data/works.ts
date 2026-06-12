@@ -34,8 +34,33 @@ export const works: Work[] = [
     coverImage: 'works/quant-backtest-cover',
   },
 
+  {
+    id: 'iwencai-skillhub',
+    title: '问财金融 Skill 上线',
+    status: '已上线 / Live',
+    year: '2026',
+    accentColor: '#9B8CFF',
+    description:
+      '把"自然语言选股 / 查公告 / 拉行情"封装成 20+ 个标准化 Skill，发布到问财 × OpenClaw 官方技能库 —— 让 Claude、Cursor 以及任何兼容 MCP 协议的客户端都能用一句中文调用同花顺 20 年沉淀的金融数据。',
+    highlights: [
+      '20+ 个 Skill：覆盖新闻 / 公告 / 研报 / 选股 / 选基 / 期货期权 / 港美股 / 宏观数据等全场景',
+      '全栈兼容 OpenClaw / MCP 协议，任意 Agent 框架（Claude / Cursor / 自研）开箱即用',
+      '官方出品徽章背书 ——"由同花顺官方团队开发、品质保障"，可直接被用户一键收藏',
+    ],
+    tech: [
+      'OpenClaw / MCP',
+      '问财 OpenAPI',
+      'Prompt Engineering',
+      'Claude',
+      'Cursor',
+      '技能市场',
+    ],
+    url: 'https://www.iwencai.com/skillhub',
+    coverImage: 'works/iwencai-skillhub-cover',
+  },
+
   // ─────────────────────────────────────────────────────────────
-  // TODO 槽位 2: 复制最上面整块对象，修改 id / title / status / description /
+  // TODO 槽位 3: 复制最上面整块对象，修改 id / title / status / description /
   //   highlights / tech / url / year / accentColor。删掉这整段注释。
   // ─────────────────────────────────────────────────────────────
 
