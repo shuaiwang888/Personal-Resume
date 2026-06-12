@@ -2,8 +2,8 @@ import type { Work } from './types'
 
 /**
  * 个人作品 —— 工作之外的可交互 Demo。
- * 留 4 个槽位（4 张卡片 = 2×2 网格最协调），已填 1 个。
- * 新增作品：复制最下面那段注释块，删掉注释，填好字段即可。
+ * 4 个槽位（2×2 网格最协调），当前已填 4 个。
+ * 新增作品：需要替换现有某个或先砍掉一个（保持 ≤4）。
  */
 export const works: Work[] = [
   {
@@ -88,16 +88,33 @@ export const works: Work[] = [
     coverImage: 'works/findatapilot-cover',
   },
 
-  // ─────────────────────────────────────────────────────────────
-  // TODO 槽位 4: 复制最上面整块对象，修改 id / title / status / description /
-  //   highlights / tech / url / year / accentColor。删掉这整段注释。
-  // ─────────────────────────────────────────────────────────────
-
-  // ─────────────────────────────────────────────────────────────
-  // TODO 槽位 3: 同上。
-  // ─────────────────────────────────────────────────────────────
-
-  // ─────────────────────────────────────────────────────────────
-  // TODO 槽位 4: 同上。
-  // ─────────────────────────────────────────────────────────────
+  {
+    id: 'fin-evalops',
+    title: 'Fin-EvalOps · 金融 Agent 评测平台',
+    status: '已部署 / Deployed',
+    year: '2026',
+    accentColor: '#F59E0B',
+    description:
+      '针对金融 Agent 输出做自动化评测：13 类自研评测 Skill × 65 真实金融问句样本 × 多模型 LLM Judge，按"5 步评测协议 + 六档分量表 + 封顶规则 + 根因归因"产出结构化结果，Web 端可视化分数趋势 / 雷达图 / 根因时间线，并支持 Data Agent 对话式分析。',
+    highlights: [
+      '13 类自研评测 Skill × 65 真实金融问句 × 多模型 LLM Judge，多视角打分防单模型偏置',
+      '5 步评测协议 + 六档分量表 + 封顶规则 + 根因归因 —— 评测结果可解释可追责',
+      'Web 端可视化：分数趋势 / 雷达图 / 根因时间线 + Data Agent 对话式分析',
+      '端到端部署：FastAPI + SQLite 后端 (Render) + React/AntD/ECharts 前端 (GitHub Pages)',
+    ],
+    tech: [
+      'Python 3.11',
+      'FastAPI',
+      'SQLAlchemy',
+      'SQLite',
+      'React + TypeScript',
+      'Vite',
+      'AntD',
+      'ECharts',
+      'Render',
+      'GitHub Pages',
+    ],
+    url: 'https://shuaiwang888.github.io/Fin-EvalOps',
+    // 无 cover image → 走 accent 渐变占位封面（右上 amber 135deg）
+  },
 ]
