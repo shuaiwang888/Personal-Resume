@@ -131,11 +131,11 @@ export function WorkCard({ work, index }: WorkCardProps) {
               <span>{work.year}</span>
             </div>
 
-            <h3 className="text-display-sm text-balance text-ink-primary md:text-display-md">
+            <h3 className="min-h-[3.25rem] text-display-sm text-balance text-ink-primary md:min-h-[3.5rem] md:text-display-md">
               {work.title}
             </h3>
 
-            <p className="mt-3 text-sm leading-relaxed text-ink-secondary text-pretty md:text-body">
+            <p className="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-ink-secondary text-pretty md:min-h-[5rem] md:text-body">
               {work.description}
             </p>
 
@@ -162,8 +162,8 @@ export function WorkCard({ work, index }: WorkCardProps) {
               ))}
             </div>
 
-            {/* ───── CTA：永远 primary，永远底部 —— */}
-            <div className="mt-6 flex flex-wrap items-center gap-3 pt-2">
+            {/* ───── CTA：永远 primary，永远底部（mt-auto 顶到底部，跨卡片水平对齐）—— */}
+            <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
               <MagneticButton
                 href={work.url}
                 variant="primary"
