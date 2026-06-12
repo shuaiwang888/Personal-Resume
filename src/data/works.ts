@@ -59,8 +59,37 @@ export const works: Work[] = [
     coverImage: 'works/iwencai-skillhub-cover',
   },
 
+  {
+    id: 'findatapilot',
+    title: 'FinDataPilot · 金融数据智能体',
+    status: '本地运行 / Local-only',
+    year: '2026',
+    accentColor: '#38bdf8',
+    description:
+      '本地优先 · 自然语言驱动的金融数据智能体。从一句中文金融问题到结构化数据：LLM 规划 → 问财取数 → 清洗 → 智能可视化 → MySQL 落库 → 总结复盘，一气呵成。',
+    highlights: [
+      'LLM 智能规划：MiniMax 拆解意图 / 定字段 / 定口径，断网时本地规则兜底',
+      '流式回答：SSE 协议打字机效果，前端实时呈现每一步执行状态',
+      '智能可视化：表格 + 按数据特征自动选图（柱/折/饼），少行/纯文本自动不画图',
+      '全链路落库：MySQL 持久化 query_runs / query_columns / query_rows + CSV / Parquet 导出',
+      '优雅降级：MySQL 不可用 / LLM 不可用 / 前端包缺失 —— 全部不致命，CLI 仍能跑',
+    ],
+    tech: [
+      'Python 3.10',
+      'FastAPI',
+      'MySQL 8',
+      'pandas',
+      'MiniMax M2.7',
+      '问财 query2data',
+      'SSE',
+      'React + Vite',
+    ],
+    url: 'http://127.0.0.1:8011/',
+    coverImage: 'works/findatapilot-cover',
+  },
+
   // ─────────────────────────────────────────────────────────────
-  // TODO 槽位 3: 复制最上面整块对象，修改 id / title / status / description /
+  // TODO 槽位 4: 复制最上面整块对象，修改 id / title / status / description /
   //   highlights / tech / url / year / accentColor。删掉这整段注释。
   // ─────────────────────────────────────────────────────────────
 
