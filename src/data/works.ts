@@ -145,6 +145,6 @@ export const works: Work[] = [
       'shadcn/ui',
     ],
     url: 'http://127.0.0.1:5173/#/chat',
-    // 无 cover image → 走 accent 渐变占位封面（emerald 135deg）; 等用户截图后补 coverImage
+    coverImage: 'works/ai-chatbot-cover',
   },
 ]
