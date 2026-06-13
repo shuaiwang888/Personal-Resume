@@ -2,8 +2,8 @@ import type { Work } from './types'
 
 /**
  * 个人作品 —— 工作之外的可交互 Demo。
- * 4 个槽位（2×2 网格最协调），当前已填 4 个。
- * 新增作品：需要替换现有某个或先砍掉一个（保持 ≤4）。
+ * 设计容量 2×2 = 4 个最协调；第 5 个起单独一行居中（孤儿卡）。
+ * 当前已填 5 个：4 + 1（孤儿）。
  */
 export const works: Work[] = [
   {
@@ -116,5 +116,35 @@ export const works: Work[] = [
     ],
     url: 'https://shuaiwang888.github.io/Fin-EvalOps',
     // 无 cover image → 走 accent 渐变占位封面（右上 amber 135deg）
+  },
+
+  {
+    id: 'ai-chatbot',
+    title: 'AI-Chatbot · 私人 Agent 智能客服',
+    status: '本地运行 / Local-only',
+    year: '2026',
+    accentColor: '#10B981',
+    description:
+      '基于多模态文档 (PDF / Word / 图片) 的 RAG + Agent 问答系统。LangGraph 多轮对话、Docling 结构化解析、BGE-M3 混合检索 + BGE-Reranker 精排、引用源追踪、5 个工具调用、零成本部署 (HF Spaces + GH Pages + HF Dataset 持久化)。',
+    highlights: [
+      '多格式摄入: PDF / Word / PPT / Excel / 图片 (中英 OCR), Docling 结构感知 + 跨页表',
+      '混合检索: BGE-M3 dense + sparse + ColBERT 三路 → RRF 融合, 再走 BGE-reranker 精排 + CRAG 自校正',
+      'LangGraph 多轮对话: SQLite checkpoint 持久化, 每次回答附 page + heading + snippet + score',
+      '零成本部署: HF Spaces (FastAPI) + GitHub Pages (React) + HF Dataset (Git LFS 持久化)',
+    ],
+    tech: [
+      'Python 3.11',
+      'FastAPI',
+      'LangGraph',
+      'Docling',
+      'BGE-M3',
+      'BGE-Reranker',
+      'ChromaDB',
+      'React 19',
+      'Vite',
+      'shadcn/ui',
+    ],
+    url: 'http://127.0.0.1:5173/#/chat',
+    // 无 cover image → 走 accent 渐变占位封面（emerald 135deg）; 等用户截图后补 coverImage
   },
 ]
