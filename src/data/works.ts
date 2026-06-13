@@ -2,8 +2,9 @@ import type { Work } from './types'
 
 /**
  * 个人作品 —— 工作之外的可交互 Demo。
- * 设计容量 2×2 = 4 个最协调；第 5 个起单独一行居中（孤儿卡）。
- * 当前已填 5 个：4 + 1（孤儿）。
+ * 网格策略：2 列。奇数时末位自然掉到左列（与 1/3 对齐），右列留白，
+ * 无需拆分逻辑 —— 增删作品只需 push / splice 数组。
+ * 当前已填 5 个：左列 3 张，右列 2 张。
  */
 export const works: Work[] = [
   {
@@ -121,7 +122,7 @@ export const works: Work[] = [
   {
     id: 'ai-chatbot',
     title: 'AI-Chatbot · 私人 Agent 智能客服',
-    status: '本地运行 / Local-only',
+    status: '已部署 / Deployed',
     year: '2026',
     accentColor: '#10B981',
     description:
@@ -144,7 +145,7 @@ export const works: Work[] = [
       'Vite',
       'shadcn/ui',
     ],
-    url: 'http://127.0.0.1:5173/#/chat',
+    url: 'https://shuaiwang888.github.io/AI-Chatbot/#/chat',
     coverImage: 'works/ai-chatbot-cover',
   },
 ]
