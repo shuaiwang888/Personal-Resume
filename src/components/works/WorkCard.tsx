@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, ExternalLink } from 'lucide-react'
 import { BorderGlow } from '@/components/ui/BorderGlow/BorderGlow'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { TechTag } from '@/components/ui/TechTag'
+import { trackClick } from '@/lib/api'
 import type { Work } from '@/data/types'
 
 interface WorkCardProps {
@@ -169,6 +170,15 @@ export function WorkCard({ work, index }: WorkCardProps) {
                 variant="primary"
                 anchorProps={{ target: '_blank', rel: 'noopener noreferrer' }}
                 ariaLabel={`试用 ${work.title}`}
+                onClick={() =>
+                  trackClick({
+                    type: 'cta_click',
+                    section: 'works',
+                    label: 'try_it',
+                    work_id: work.id,
+                    href: work.url,
+                  })
+                }
               >
                 <ExternalLink className="h-4 w-4" />
                 试用 / Try it

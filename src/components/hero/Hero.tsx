@@ -1,7 +1,9 @@
 import { HeroVideo } from './HeroVideo'
 import { HeroContent } from './HeroContent'
+import { useSectionImpression } from '@/hooks/useSectionImpression'
 
 export function Hero() {
+  useSectionImpression('hero')
   return (
     <section
       id="hero"

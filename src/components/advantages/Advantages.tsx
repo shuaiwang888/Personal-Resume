@@ -1,7 +1,9 @@
 import { Section } from '@/components/ui/Section'
 import { AdvantagesGrid } from './AdvantagesGrid'
+import { useSectionImpression } from '@/hooks/useSectionImpression'
 
 export function Advantages() {
+  useSectionImpression('advantages')
   return (
     <Section
       id="advantages"

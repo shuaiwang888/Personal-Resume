@@ -6,8 +6,10 @@ import { Projects } from '@/components/projects/Projects'
 import { Works } from '@/components/works/Works'
 import { Advantages } from '@/components/advantages/Advantages'
 import { Contact } from '@/components/contact/Contact'
+import { useTrackEvent } from '@/hooks/useTrackEvent'
 
 function App() {
+  useTrackEvent({ type: 'app_loaded' })
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-bg-base text-ink-primary">
       {/* 全站背景装饰 */}

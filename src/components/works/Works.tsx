@@ -1,7 +1,9 @@
 import { Section } from '@/components/ui/Section'
 import { WorksGrid } from './WorksGrid'
+import { useSectionImpression } from '@/hooks/useSectionImpression'
 
 export function Works() {
+  useSectionImpression('works')
   return (
     <Section
       id="works"

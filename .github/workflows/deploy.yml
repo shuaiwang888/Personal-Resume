@@ -43,6 +43,8 @@ jobs:
           # 联系方式（从 Repository secrets 注入；本地 dev 用 .env.local）
           VITE_PUBLIC_EMAIL: ${{ secrets.VITE_PUBLIC_EMAIL }}
           VITE_PUBLIC_PHONE: ${{ secrets.VITE_PUBLIC_PHONE }}
+          # 访问统计后端（HF Space）。本地 dev 留空 = 关闭埋点。
+          VITE_API_BASE: ${{ secrets.VITE_API_BASE }}
         run: npm run build
 
       - name: Disable Jekyll processing

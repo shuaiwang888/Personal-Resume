@@ -2,10 +2,13 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, Download, Send } from 'lucide-react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { ContactChannel } from './ContactChannel'
+import { useSectionImpression } from '@/hooks/useSectionImpression'
+import { trackClick } from '@/lib/api'
 import { profile } from '@/data/profile'
 
 export function Contact() {
   const reduced = useReducedMotion()
+  useSectionImpression('contact')
 
   return (
     <section
@@ -74,7 +77,13 @@ export function Contact() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
-          <MagneticButton href={`mailto:${profile.email}`} variant="primary">
+          <MagneticButton
+            href={`mailto:${profile.email}`}
+            variant="primary"
+            onClick={() =>
+              trackClick({ type: 'cta_click', section: 'contact', label: 'email' })
+            }
+          >
             <Send className="h-4 w-4" />
             发送邮件
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -84,11 +93,20 @@ export function Contact() {
             variant="ghost"
             // 文件下载：浏览器原生下载，文件名更友好
             anchorProps={{ download: '王帅-AI产品经理-简历.pdf' }}
+            onClick={() =>
+              trackClick({ type: 'cta_click', section: 'contact', label: 'resume_pdf' })
+            }
           >
             <Download className="h-4 w-4" />
             下载简历 PDF
           </MagneticButton>
-          <MagneticButton href={`tel:${profile.phone}`} variant="ghost">
+          <MagneticButton
+            href={`tel:${profile.phone}`}
+            variant="ghost"
+            onClick={() =>
+              trackClick({ type: 'cta_click', section: 'contact', label: 'phone' })
+            }
+          >
             {profile.phone}
           </MagneticButton>
         </motion.div>

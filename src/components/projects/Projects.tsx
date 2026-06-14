@@ -1,7 +1,9 @@
 import { Section } from '@/components/ui/Section'
 import { ProjectsList } from './ProjectsList'
+import { useSectionImpression } from '@/hooks/useSectionImpression'
 
 export function Projects() {
+  useSectionImpression('projects')
   return (
     <Section
       id="projects"

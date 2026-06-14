@@ -96,6 +96,7 @@ export function MagneticButton({
       >
         <a
           href={href}
+          onClick={onClick}
           className={baseClass}
           aria-label={ariaLabel}
           {...anchorProps}
