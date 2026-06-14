@@ -63,7 +63,7 @@ export const works: Work[] = [
   {
     id: 'findatapilot',
     title: 'FinDataPilot · 金融数据智能体',
-    status: '本地运行 / Local-only',
+    status: '已部署 / Deployed',
     year: '2026',
     accentColor: '#38bdf8',
     description:
@@ -85,7 +85,7 @@ export const works: Work[] = [
       'SSE',
       'React + Vite',
     ],
-    url: 'http://127.0.0.1:8011/',
+    url: 'https://shuaiwang888.github.io/Fin-DataPilot/',
     coverImage: 'works/findatapilot-cover',
   },
 
