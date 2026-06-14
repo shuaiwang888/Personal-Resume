@@ -30,3 +30,6 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# 本地使用手册（含全部访问地址、HF Token 位置、安全审计结果等）— 不入仓
+USAGE.md
