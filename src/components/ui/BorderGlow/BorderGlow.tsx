@@ -125,37 +125,8 @@ export function BorderGlow({
   fillOpacity = 0.5,
   style,
 }: BorderGlowProps) {
-  /**
-   * 移动端旁路
-   * --------------------------------------------------------------
-   * 完整 BorderGlow 包含：
-   * - 1 个强制合成层（will-change + translate3d hack）
-   * - 2 个复杂 mask-image 层（::before / ::after,各 7 个 radial-gradient）
-   * - 1 个 14 层 box-shadow 子元素（.edge-light::before）
-   * - 1 个 rAF pointermove 监听器
-   *
-   * 单卡 GPU 表面约 5+，整页 13 张卡 = 65+ 个合成层。
-   * iOS Safari 合成层预算约 50-80（视可用 RAM 而定），踩到就杀 tab
-   * → 用户感知为"下翻后整页重载"。
-   *
-   * 移动端（粗指针 + 窄屏）跳过所有昂贵渲染，只保留静态边框。
-   * 桌面端完全保留原效果。
-   */
+  // ───── 所有 hook 必须在条件 return 之前无条件调用（React Rules of Hooks） ─────
   const isMobile = useMediaQuery('(pointer: coarse) and (max-width: 768px)')
-
-  if (isMobile) {
-    return (
-      <div
-        className={`relative border border-white/10 ${className}`.trim()}
-        style={{
-          background: backgroundColor,
-          borderRadius: `${borderRadius}px`,
-        }}
-      >
-        {children}
-      </div>
-    )
-  }
 
   const cardRef = useRef<HTMLDivElement | null>(null)
   const rafIdRef = useRef<number | null>(null)
@@ -283,6 +254,36 @@ export function BorderGlow({
   }, [animated])
 
   const glowVars = buildGlowVars(glowColor, glowIntensity)
+
+  /**
+   * 移动端旁路（在所有 hook 之后）
+   * --------------------------------------------------------------
+   * 完整 BorderGlow 包含：
+   * - 1 个强制合成层（will-change + translate3d hack）
+   * - 2 个复杂 mask-image 层（::before / ::after,各 7 个 radial-gradient）
+   * - 1 个 14 层 box-shadow 子元素（.edge-light::before）
+   * - 1 个 rAF pointermove 监听器
+   *
+   * 单卡 GPU 表面约 5+,整页 13 张卡 = 65+ 个合成层。
+   * iOS Safari 合成层预算约 50-80(视可用 RAM 而定),踩到就杀 tab
+   * → 用户感知为"下翻后整页重载"。
+   *
+   * 移动端(粗指针 + 窄屏)跳过所有昂贵渲染,只保留静态边框。
+   * 桌面端完全保留原效果。
+   */
+  if (isMobile) {
+    return (
+      <div
+        className={`relative border border-white/10 ${className}`.trim()}
+        style={{
+          background: backgroundColor,
+          borderRadius: `${borderRadius}px`,
+        }}
+      >
+        {children}
+      </div>
+    )
+  }
 
   return (
     <div
