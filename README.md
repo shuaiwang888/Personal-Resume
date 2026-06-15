@@ -53,10 +53,10 @@
 浏览器 → shuaiwang888.github.io/Personal-Resume/  (静态 SPA)
        ↓ fetch /api/events
        ↓
-HF Space appQQQ-Personal-Resume.hf.space          (FastAPI)
+HF Space appstoreqaq-personal-resume.hf.space    (FastAPI)
        ↓ 批量上传
        ↓
-HF Dataset appQQQ/Personal-Resume-Data            (JSONL 归档)
+HF Dataset appStoreQAQ/Personal-Resume-Data       (JSONL 归档)
        ↑ GET /api/stats 实时聚合(读最近 7 天)
        ↑
 浏览器 /api/stats 可视化(后续迭代)
@@ -254,7 +254,7 @@ session_id 内存生成,不写 cookie / localStorage,不放 PII。
 cd /Users/appstore/AI-Code/提升项目/Personal-Resume-Analytics
 HF_TOKEN=hf_xxx bash scripts/deploy-to-hf-space.sh
 # 脚本自动:
-#   1. clone git@hf.co:spaces/appQQQ/Personal-Resume
+#   1. clone git@hf.co:spaces/appStoreQAQ/Personal-Resume
 #   2. cp app/ + Dockerfile + requirements.txt
 #   3. 写 .gitignore(防 __pycache__/.data 污染)
 #   4. commit + push
