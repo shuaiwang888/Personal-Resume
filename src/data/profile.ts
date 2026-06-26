@@ -55,16 +55,6 @@ export const profile: Profile = {
       ],
     },
     {
-      company: '重庆梧桐车联科技有限公司（实习）',
-      role: 'Android 开发工程师',
-      period: '2023.03 - 2023.05',
-      location: '重庆',
-      bullets: [
-        '负责车机系统 Android 应用开发，涵盖 UI 交互、功能实现与系统优化',
-        '针对不同车型与硬件环境优化应用适配性，保障软件的稳定性与流畅度',
-      ],
-    },
-    {
       company: '北京快手科技有限公司（实习）',
       role: '后端开发工程师',
       period: '2021.12 - 2022.06',
